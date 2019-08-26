@@ -150,10 +150,12 @@
     extends(question_quiz)).
     :- meta_non_terminal(html_write:html(*)).
 
+    required_script('mcq.js').
+
     :- protected(question_options/1).
 
     :- private(mcq_quiz//0).
-    mcq_quiz --> { self(Self) }, html_write:html(
+    mcq_quiz --> { self(Self) }, html_write:html(div(class(row),
         [ div(class('col-sm-9'),
             [ div(class('table-responsive'),
                 table(class([table, 'table-striped', 'sticky-header']),
@@ -165,7 +167,7 @@
             ])
         , div(class('col-sm-3'), ul([class('list-group'), id(feedback)], []))
         , Self::pl_questions
-        ]
+        ])
     ).
 
     :- public(th_opt//0).
@@ -195,5 +197,5 @@
     content -->
         ::heading2,
         ::subcontent,
-        :: mcq_quiz.
+        ::mcq_quiz.
 :- end_object.

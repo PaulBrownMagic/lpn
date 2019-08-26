@@ -17,7 +17,7 @@ body_lgt(N) -->
 
 :- initialization((
 	logtalk_load(
-        [ library(metapredicates_loader)
+        [ library(metapredicates_loader) % meta::map
         , sections
         , 'book/book'
         ],
