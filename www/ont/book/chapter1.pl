@@ -20,7 +20,7 @@ frame('1.1',
                          , remember('queries are part of Prolog')
                          , remember('queries are how Prolog is used')
                          ]
-    , keyTerms- ['knowledge base', 'database']
+    , keyTerms-['knowledge base', 'database']
     ]
 ).
 
