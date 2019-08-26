@@ -8,22 +8,19 @@
     implements(bodyresp)).
 
     :- public([title/1]).
+
     :- private(heading1//0).
     heading1 --> {self(Self), ::title(T)}, html_write::html(h1("~w: ~w"-[Self, T])).
 
     :- private(heading2//0).
     heading2 --> {self(Self), ::title(T)}, html_write::html(h2("~w: ~w"-[Self, T])).
 
-    content --> html_write::html(h1("Not Implemented")).
 :- end_object.
 
 :- object(navigation_section,
     extends(section)).
 
-%    :- meta_predicate(html_write:html(2,*,*)).
-
     :- private(children/1).
-    :- private(subcontent//0).
 
     :- protected(nav_heading//0).
     nav_heading --> { self(Self), ::title(T) },
@@ -39,7 +36,9 @@
     nav_item([]) --> [].
     nav_item([H|T]) --> html_write::html(li(class('nav-item'), H)), nav_item(T). % simplified for now
 
-    content --> ::nav_heading, ::subcontent, ::navigation_children.
+    content --> {self(Self)},
+        ::nav_heading,
+        html_write::html(div([h5("Exercises: "), Self::navigation_children])).
 
 
 :- end_object.
@@ -75,6 +74,11 @@
         ).
 :- end_object.
 
+:- object(exercises,
+    extends(navigation_section)).
+    title("Exercises").
+:- end_object.
+
 :- object('1',
     extends(chapter)).
     title("Facts, Rules, and Queries").
@@ -84,6 +88,10 @@
           ]).
 :- end_object.
 
+:- object('1.3',
+    extends(exercises)).
+    children(['1.3.1', '1.3.2', '1.3.3', '1.3.4', '1.3.5', '1.3.6', '1.3.7', '1.3.8']).
+:- end_object.
 
 /*
     subcontent --> html_write::html(
