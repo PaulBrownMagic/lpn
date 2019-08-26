@@ -46,7 +46,7 @@ frame('2.2',
 frame('2.3',
     [ ako-'NavigationArtifact'
     , title-"Exercises"
-    , children-['2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6']
+    , children-['2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7']
     ]
 ).
 
@@ -161,16 +161,16 @@ frame('2.3.6',
     ]
 ).
 
-frame('2.3.6',
+frame('2.3.7',
     [ ako-'AssessmentArtifact'
     , title-"Crossword Puzzle"
     , type-'query-test'
-    , tests-[ test('current_predicate(\(crossword, 6)).', 'You need to define a predicate \'crossword/6\'')
+    , tests-[ test('current_predicate(/(crossword, 6)).', 'You need to define a predicate \'crossword/6\' ')
             , test('crossword(astante, cobalto, pistola, _, _, _).', 'The first three arguments should be the vertical words from left to right')
             , test('crossword(astoria, baratto, statale, _, _, _).', 'The first three arguments should be the vertical words from left to right')
             , test('crossword(_, _, _, astoria, baratto, statale).', 'The second three arguments should be the horizontal words from top to bottom')
             , test('crossword(_, _, _, astante, cobalto, pistola).', 'The second three arguments should be the horizontal words from top to bottom')
-            , test('crossword(A, B, C, D, E, F), A \= D, B \= E, D \= F, \+ crossword(A, B, C, A, B, C).', 'All six words should be unified')
+            , test('crossword(A, B, C, D, E, F), A \\= D, B \\= E, D \\= F, \\+ crossword(A, B, C, A, B, C).', 'All six words should be unified')
             ]
     , results-[ result('crossword(astante, cobalto, pistola, astoria, baratto, statale).')
               , result('crossword(astoria, baratto, statale, astante, cobalto, pistola).')
@@ -183,7 +183,7 @@ frame('2.3.6',
     word(H1, _, A, _, D, _, G, _),
     word(H2, _, B, _, E, _, H, _),
     word(H3, _, C, _, F, _, I, _),
-    V1 \= H1, V2 \= H2, V3 \= H3.')
+    V1 \\= H1, V2 \\= H2, V3 \\= H3.')
     ]
 ).
 
