@@ -33,9 +33,9 @@
             ])).
 
     :- public(navigation_children//0).
-    navigation_children --> { ::children(C), this(This) }, html_write:html(ul(class([nav, 'flex-column']), This::nav_item(C))).
+    navigation_children --> { ::children(C) }, html_write:html_begin(ul(class([nav, 'flex-column']))), nav_item(C), html_write:html_end(ul).
 
-    :- public(nav_item//1).
+    :- private(nav_item//1).
     nav_item([]) --> [].
     nav_item([H|T]) --> {H::title(Title)},
         html_write:html(li(class('nav-item'),
@@ -121,9 +121,9 @@
 
     title("Exercises").
 
-    content --> {self(Self)},
+    content -->
         ::nav_heading,
-        html_write:html(div([h5("Exercises: "), Self::navigation_children])).
+        html_write:html_begin(div), html_write:html(h5("Exercises: ")), ::navigation_children, html_write:html_end(div).
 :- end_object.
 
 
