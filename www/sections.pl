@@ -1,9 +1,8 @@
 :- use_module(library(logtalk)).
 :- use_module(library(http/html_write)).
-:- logtalk_load(sections).
-:- ensure_loaded(code_components).
-% :- meta_predicate(html_write:html(2,*,*)).
+:- ensure_loaded(html_components/code_components).
 
+% :- meta_predicate(html_write:html(2,*,*)).
 
 :- multifile(html_write:expand//1).
 html_write:expand(Object::Closure, Arg1, Arg2) :-
@@ -14,3 +13,11 @@ html_write:expand(Object::Closure, Arg1, Arg2) :-
     Object::Message.
 
 
+
+:- initialization((
+	logtalk_load(
+        [ sections
+        ],
+        [ % required file specific compiler options
+        ])
+)).

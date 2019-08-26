@@ -1,18 +1,18 @@
 % Inline prolog code, syntax highlighting client-side with Prism.js
-inline_code(Code) -->
+html_write:inline_code(Code) -->
     html(code(class('lang-prolog'), Code)).
 
 % Prolog code block, non-interactive, syntax highlighting client-side with Prism.js
-static_code_block(Code) -->
+html_write:static_code_block(Code) -->
     html(pre(code(class('lang-prolog'), Code))).
 
 % Interactive code block
-code_block(ID, Block) -->
+html_write:code_block(ID, Block) -->
     { atomics_to_string(Block, "\n", Code), length(Block, Rows) },
     html(textarea([class([code, 'form-control', 'mb-2', 'text-monospace']), id(ID), rows(Rows)], Code)).
 
 % A Query for a code block
-code_query(ID, Query) --> {random_id(UID)}, html(
+html_write:code_query(ID, Query) --> {random_id(UID)}, html(
     div(class('form align-items-center'),
     div(class('input-group mb-2'),
           [ div(class('input-group-prepend'), pre(class('query_prompt input-group-text'), "?-"))
