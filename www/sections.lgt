@@ -75,16 +75,27 @@
         ).
 :- end_object.
 
+
 :- object(node_section,
     extends(navigation_section)).
 
     :- public(subcontent//0).
 
-    content --> {self(Self)},
+    content -->
         ::heading1,
         ::subcontent,
         ::navigation_children.
 
+:- end_object.
+
+:- object(leaf_section,
+    extends(section)).
+
+    :- public(subcontent//0).
+
+    content -->
+        ::heading2,
+        ::subcontent.
 :- end_object.
 
 
@@ -103,6 +114,7 @@
           ]).
 :- end_object.
 
+
 :- object('1.1',
     extends(node_section)).
     title("Some Simple Examples").
@@ -115,6 +127,53 @@
         , p("Now this probably sounds rather strange. It’s certainly not obvious that it has much to do with programming at all. After all, isn’t programming all about telling a computer what to do? But as we shall see, the Prolog way of programming makes a lot of sense, at least for certain tasks; for example, it is useful in computational linguistics and Artificial Intelligence (AI). But instead of saying more about Prolog in general terms, let’s jump right in and start writing some simple knowledge bases; this is not just the best way of learning Prolog, it’s the only way.")
         ]).
 :- end_object.
+
+
+:- object('1.1.1',
+    extends(leaf_section)).
+    title("Knowledge Base 1").
+
+    subcontent --> html_write::html(
+        [ p(["Knowledge Base 1 (KB1) is simply a collection of facts. Facts are used to state things that are ", em("unconditionally"), " true of some situation of interest. For example, we can state that Mia, Jody, and Yolanda are women, that Jody plays air guitar, and that a party is taking place, using the following five facts:"])
+        , \code_block("kb1",
+            [ "woman(mia)."
+            , "woman(jody)."
+            , "woman(yolanda)."
+            , "playsAirGuitar(jody)."
+            , "party."
+            ])
+        , p(["This collection of facts is KB1. It is our first example of a Prolog program. Note that the names ", \inline_code("mia"), ", ", \inline_code("jody"), ", and ", \inline_code("yolanda"), ", the properties ", \inline_code("woman"), " and ", \inline_code("playsAirGuitar"), ", and the proposition ", \inline_code("party"), " have been written so that the first letter is in lower-case. This is important; we will see why a little later on."])
+        , p("How can we use KB1? By posing queries. That is, by asking questions about the information KB1 contains. Here are some examples. We can ask Prolog whether Mia is a woman by posing the query:")
+        , \code_query("kb1", "woman(mia).")
+        , p("Prolog will answer")
+        , \static_code_block(yes)
+        , p(["for the obvious reason that this is one of the facts explicitly recorded in KB1. Incidentally, ", em("we"), " don’t type in the ", \inline_code("?-"), ". This symbol (or something like it, depending on the implementation of Prolog you are using) is the prompt symbol that the Prolog interpreter displays when it is waiting to evaluate a query. We just type in the actual query (for example ", \inline_code("woman(mia)"), " ) followed by ", \inline_code("."), " (a full stop). The full stop is important. If you don’t type it, Prolog won’t start working on the query."])
+        , p("Similarly, we can ask whether Jody plays air guitar by posing the following query:")
+        , \code_query("kb1", "playsAirGuitar(jody).")
+        , p("Prolog will again answer yes, because this is one of the facts in KB1. However, suppose we ask whether Mia plays air guitar:")
+        , \code_query("kb1", "playsAirGuitar(mia).")
+        , p("We will get the answer")
+        , \static_code_block(no)
+        , p(["Why? Well, first of all, this is not a fact in KB1. Moreover, KB1 is extremely simple, and contains no other information (such as the ", em("rules"), " we will learn about shortly) which might help Prolog try to infer (that is, deduce) whether Mia plays air guitar. So Prolog correctly concludes that ", \inline_code("playsAirGuitar(mia)"), " does ", em("not"), " follow from KB1."])
+        , p("Here are two important examples. First, suppose we pose the query:")
+        , \code_query("kb1", "playsAirGuitar(vincent).")
+        , p(["Again Prolog answers ", \inline_code("no."), " Why? Well, this query is about a person (Vincent) that it has no information about, so it (correctly) concludes that ", \inline_code("playsAirGuitar(vincent)"), " cannot be deduced from the information in KB1."])
+        , p("Similarly, suppose we pose the query:")
+        , \code_query("kb1", "tatooed(jody).")
+        , p(["Again Prolog will answer ", \inline_code("no."), " Why? Well, this query is about a property (being tatooed) that it has no information about, so once again it (correctly) concludes that the query cannot be deduced from the information in KB1. (Actually, some Prolog implementations will respond to this query with an error message, telling you that the predicate or procedure ", \inline_code("tatooed"), " is not defined; we will soon introduce the notion of predicates.)"])
+        , p("Needless to say, we can also make queries concerning propositions. For example, if we pose the query")
+        , \code_query("kb1", "party.")
+        , p("then Prolog will respond")
+        , \static_code_block(yes)
+        , p("and if we pose the query")
+        , \code_query("kb1", "rockConcert.")
+        , p("then Prolog will respond")
+        , \static_code_block(no)
+        , p("exactly as we would expect.")
+        ]
+    ).
+:- end_object.
+
 
 :- object('1.3',
     extends(exercises)).

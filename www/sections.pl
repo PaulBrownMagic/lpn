@@ -1,6 +1,7 @@
 :- use_module(library(logtalk)).
 :- use_module(library(http/html_write)).
 :- logtalk_load(sections).
+:- ensure_loaded(code_components).
 % :- meta_predicate(html_write:html(2,*,*)).
 
 
