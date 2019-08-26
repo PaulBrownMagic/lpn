@@ -17,7 +17,8 @@ body_lgt(N) -->
 
 :- initialization((
 	logtalk_load(
-        [ sections
+        [ library(metapredicates_loader)
+        , sections
         , 'book/book'
         ],
         [ % required file specific compiler options
