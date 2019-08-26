@@ -4,6 +4,7 @@
 :- ensure_loaded(www(html_components/html_components)).
 :- ensure_loaded(www(book/book)).
 :- ensure_loaded(www(ont/query)).
+:- ensure_loaded(www(sections)).
 
 % tmp home page
 say_hi(_R) :-
@@ -54,7 +55,8 @@ reply_lpn_section(N, _Request) :-
         , link([href("/static/css/prism.css"), rel(stylesheet)])
         ],
         % Body
-	    [\section(N)]).
+	    [\body_lgt(N)]).
+
 
 % Can't find page with identifier N, so 404
 reply_lpn_section(N, R) :-

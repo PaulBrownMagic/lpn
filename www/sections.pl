@@ -12,11 +12,13 @@ html_write:expand(Object::Closure, Arg1, Arg2) :-
     Message =.. [Functor| FullArgs],
     Object::Message.
 
-
+body_lgt(N) -->
+    html(N::content).
 
 :- initialization((
 	logtalk_load(
         [ sections
+        , 'book/book'
         ],
         [ % required file specific compiler options
         ])
