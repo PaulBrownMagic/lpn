@@ -26,7 +26,7 @@ scripts(N) -->
         , script([src('/static/js/vendor/bootstrap.bundle.min.js')], [])
         , script([src('/static/js/vendor/prism.js')], [])
         , script([src('/static/js/vendor/tau-prolog.js')], [])
-        , script([src('/static/js/vendor/lpn.js')], [])
+        , script([src('/static/js/lpn.js')], [])
         , script([src('/static/js/interactive_pl.js')], [])
         ]
     ).
