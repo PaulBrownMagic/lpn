@@ -65,7 +65,7 @@
 :- object('1.3.4',
     extends(input_compare_quiz)).
 
-    title("Facts, rules, clauses and predicates").
+    title("Facts, Rules, Clauses and Predicates").
     questions([ question('How many facts are there?', '3', 'a fact is unconditionally true, so it does not contain ":-" in its definition')
               , question('How many rules are there?', '4', 'a rule is conditionally true, so it contains ":-" in its definition')
               , question('How many clauses are there?', '7', 'all facts and rules are clauses')

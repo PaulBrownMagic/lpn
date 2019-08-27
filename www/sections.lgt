@@ -25,7 +25,7 @@
     extends(section)).
     :- meta_non_terminal(html_write:html(*)).
 
-    :- private(children/1).
+    :- public(children/1).
 
     :- protected(nav_heading//0).
     nav_heading --> { self(Self), ::title(T) },

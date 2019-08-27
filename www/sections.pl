@@ -15,6 +15,12 @@ html_write:expand(Object::Closure, Arg1, Arg2) :-
 body_lgt(N) -->
     html(N::content).
 
+ako(A, B) :-
+    extends_object(A, B).
+ako(A, B) :-
+    extends_object(A, Z),
+    ako(Z, B).
+
 :- initialization((
 	logtalk_load(
         [ library(metapredicates_loader) % meta::map
