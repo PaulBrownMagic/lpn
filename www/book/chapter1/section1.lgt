@@ -4,7 +4,7 @@
     children(['1.1.1', '1.1.2', '1.1.3', '1.1.4', '1.1.5']).
     keyTerms(['knowledge base', 'database']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p(["There are only three basic constructs in Prolog: facts, rules, and queries. A collection of facts and rules is called a knowledge base (or a database) and Prolog programming is all about writing knowledge bases. That is, Prolog programs simply ", em("are"), " knowledge bases, collections of facts and rules which describe some collection of relationships that we find interesting."])
         , p(["So how do we ", em("use"), " a Prolog program? By posing queries. That is, by asking questions about the information stored in the knowledge base."])
         , p("Now this probably sounds rather strange. It’s certainly not obvious that it has much to do with programming at all. After all, isn’t programming all about telling a computer what to do? But as we shall see, the Prolog way of programming makes a lot of sense, at least for certain tasks; for example, it is useful in computational linguistics and Artificial Intelligence (AI). But instead of saying more about Prolog in general terms, let’s jump right in and start writing some simple knowledge bases; this is not just the best way of learning Prolog, it’s the only way.")
@@ -18,7 +18,7 @@
     title("Knowledge Base 1").
     keyTerms(['facts', 'queries', 'infer', 'deduce']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p(["Knowledge Base 1 (KB1) is simply a collection of facts. Facts are used to state things that are ", em("unconditionally"), " true of some situation of interest. For example, we can state that Mia, Jody, and Yolanda are women, that Jody plays air guitar, and that a party is taking place, using the following five facts:"])
         , \code_block("kb1",
             [ "woman(mia)."
@@ -64,7 +64,7 @@
     title("Knowledge Base 2").
     keyTerms(['rules', 'head', 'body', 'modus ponens', 'clauses', 'predicates', 'procedures']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p("Here is KB2, our second knowledge base:")
         , \code_block("kb2",
             [ "happy(yolanda)."
@@ -102,7 +102,7 @@
     title("Knowledge Base 3").
     keyTerms(['goals', 'conjunction', 'disjunction', 'logic']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p("KB3, our third knowledge base, consists of five clauses:")
         , \code_block("kb3",
             [ "happy(vincent)."
@@ -145,7 +145,7 @@
     title("Knowledge Base 4").
     keyTerms(['variables', 'unify', 'match', 'instantiates', 'binds', 'variable binding', 'variable instantiation']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p("Here is KB4, our fourth knowledge base:")
         , \code_block("kb4",
             [ "woman(mia)."
@@ -184,7 +184,7 @@
     extends(leaf_section)).
     title("Knowledge Base 5").
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p(["Well, we’ve introduced variables, but so far we’ve only used them in queries. But variables not only ", em("can"), " be used in knowledge bases, it’s only when we start to do so that we can write truly interesting programs. Here’s a simple example, the knowledge base KB5:"])
         , \code_block("kb5",
             [ "loves(vincent,mia)."

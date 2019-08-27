@@ -1,6 +1,6 @@
 :- object('1.4',
     extends(practice)).
-    subcontent --> html_write::html(
+    subcontent(
         [ p("Don’t be fooled by the fact that the description of the practical sessions is shorter than the text you have just read; the practical part is definitely the most important. Yes, you need to read the text and do the exercises, but that’s not enough to become a Prolog programmer. To really master the language you need to sit down in front of a computer and play with Prolog — a lot!")
         , p("The goal of the first practical session is for you to become familiar with the basics of how to create and run simple Prolog programs. Now, because there are many different implementations of Prolog, and different operating systems you can run them under, we can’t be too specific here. Rather, what we’ll do is describe in very general terms what is involved in running Prolog, list the practical skills you need to master, and suggest some things for you to do.")
         , p(["The simplest way to run a Prolog program is as follows. You have a file with your Prolog program in it (for example, you may have a file ", \inline_code("kb2.pl"), " which contains the knowledge base KB2). You then start Prolog. Prolog will display its prompt, something like"])

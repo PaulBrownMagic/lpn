@@ -4,7 +4,7 @@
     children(['1.2.1', '1.2.2', '1.2.3', '1.2.4']).
     keyTerms(['terms', 'constants', 'simple terms', 'characters', 'underscore', 'string']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p(["Now that we’ve got some idea of what Prolog does, it’s time to go back to the beginning and work through the details more carefully. Let’s start by asking a very basic question: we’ve seen all kinds of expressions (for example ", \inline_code("jody"), ", ", \inline_code("playsAirGuitar(mia)"), ", and ", \inline_code("X"), ") in our Prolog programs, but these have just been examples. It’s time for precision: exactly what are facts, rules, and queries built out of?"])
         , p("The answer is terms, and there are four kinds of term in Prolog: atoms, numbers, variables, and complex terms (or structures). Atoms and numbers are lumped together under the heading constants, and constants and variables together make up the simple terms of Prolog.")
         , p(["Let’s take a closer look. To make things crystal clear, let’s first be precise about the basic characters (that is, symbols) at our disposal. The ", em("upper-case letters"), " are ", \inline_code("A, B ,…, Z;"), " the ", em("lower-case letters"), " are ", \inline_code("a, b ,…, z;"), " the ", em("digits"), " are ", \inline_code("0, 1 , 2 ,…, 9"), ". In addition we have the ", \inline_code("_"), " symbol, which is called underscore, and some ", em("special characters"), " , which include characters such as ", \inline_code("+, - , * , / , < , > , = , : , . , & , ~"), ". The blank ", em("space"), " is also a character, but a rather unusual one, being invisible. A string is an unbroken sequence of characters."])
@@ -18,7 +18,7 @@
     title("Atoms").
     keyTerms(['atom', 'atom name']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p("An atom is either:")
         , ol(class('list-group'),
             [ li(class('list-group-item'), [\ol_num(1), "A string of characters made up of upper-case letters, lower-case letters, digits, and the underscore character, that begins with a lower-case letter. Here are some examples: ", \inline_code("butch"), ", ", \inline_code("big_kahuna_burger"), ", ", \inline_code("listens2Music"), " and ", \inline_code("playsAirGuitar"), "."])
@@ -35,7 +35,7 @@
     title("Numbers").
     keyTerms(['numbers', 'floating point', 'floats', 'integers']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p("Real numbers aren’t particularly important in typical Prolog applications. So although most Prolog implementations do support floating point numbers or floats (that is, representations of real numbers such as 1657.3087 or π ) we say little about them in this book.")
         , p(["But integers (that is: …,-2, -1, 0, 1, 2, 3,…) are useful for such tasks as counting the elements of a list, and we’ll discuss how to manipulate them in ", a(href('/section/5'), "Chapter 5"), ". Their Prolog syntax is the obvious one: ", \inline_code("23"), ", ", \inline_code("1001"), ", ", \inline_code("0"), ", ", \inline_code("-365"), ", and so on."])
         ]
@@ -48,7 +48,7 @@
     title("Variables").
     keyTerms(['variable']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p(["A variable is a string of upper-case letters, lower-case letters, digits and underscore characters that starts ", em("either"), " with an upper-case letter or with an underscore. For example, ", \inline_code("X"), ", ", \inline_code("Y"), ", ", \inline_code("Variable"), ", ", \inline_code("_tag"), ", ", \inline_code("X_526"), ", ", \inline_code("List"), ", ", \inline_code("List24"), ", ", \inline_code("_head"), ", ", \inline_code("Tail"), ", ", \inline_code("_input"), " and ", \inline_code("Output"), "are all Prolog variables."])
         , p(["The variable ", \inline_code("_"), " (that is, a single underscore character) is rather special. It’s called the ", em("anonymous variable"), ", and we discuss it in ", a(href('/section/4'), "Chapter 4"), "."])
         ]
@@ -61,7 +61,7 @@
     title("Complex Terms").
     keyTerms(['complex terms', 'structures', 'functor', 'arguments', 'recursive structure', 'arity']).
 
-    subcontent --> html_write::html(
+    subcontent(
         [ p("Constants, numbers, and variables are the building blocks: now we need to know how to fit them together to make complex terms. Recall that complex terms are often called structures.")
         , p(["Complex terms are build out of a functor followed by a sequence of arguments. The arguments are put in ordinary parentheses, separated by commas, and placed after the functor. Note that the functor has to be directly followed by the parenthesis; you can’t have a space between the functor and the parenthesis enclosing the arguments. The functor must be an atom. That is, variables ", em("cannot"), " be used as functors. On the other hand, arguments can be any kind of term."])
         , p(["Now, we’ve already seen lots of examples of complex terms when we looked at the knowledge bases KB1 to KB5. For example, ", \inline_code("playsAirGuitar(jody)"), " is a complex term: its functor is ", \inline_code("playsAirGuitar"), " and its argument is ", \inline_code("jody"), ". Other examples are ", \inline_code("loves(vincent,mia)"), " and, to give an example containing a variable, ", \inline_code("jealous(marsellus,W)"), "."])

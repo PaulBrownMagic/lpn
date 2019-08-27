@@ -19,6 +19,7 @@ body_lgt(N) -->
 	logtalk_load(
         [ library(metapredicates_loader) % meta::map
         , sections
+        , quizzes
         , 'book/book'
         ],
         [ % required file specific compiler options

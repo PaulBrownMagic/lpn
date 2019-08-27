@@ -1,7 +1,7 @@
-:- {tutor(loader)}.
-
 :- protocol(bodyresp).
   :- public(content//0).
+  :- private(subcontent/1).
+  :- public(subcontent//0).
 :- end_protocol.
 
 
@@ -15,6 +15,8 @@
 
     :- protected(heading2//0).
     heading2 --> {self(Self), ::title(T)}, html_write:html(h2("~w: ~w"-[Self, T])).
+
+    subcontent --> {::subcontent(SC)}, html_write:html(SC).
 
 :- end_object.
 
@@ -82,8 +84,6 @@
 :- object(node_section,
     extends(navigation_section)).
 
-    :- public(subcontent//0).
-
     content -->
         ::heading1,
         ::subcontent,
@@ -94,8 +94,6 @@
 :- object(leaf_section,
     extends(section)).
 
-    :- public(subcontent//0).
-
     content -->
         ::heading2,
         ::subcontent.
@@ -104,8 +102,6 @@
 
 :- object(practice,
     extends(section)).
-
-    :- public(subcontent//0).
 
     title("Practical Session").
 
@@ -124,78 +120,4 @@
     content -->
         ::nav_heading,
         html_write:html_begin(div), html_write:html(h5("Exercises: ")), ::navigation_children, html_write:html_end(div).
-:- end_object.
-
-
-:- object(quiz,
-    extends(leaf_section)).
-    :- public(required_script/1).
-:- end_object.
-
-
-:- object(question_quiz,
-    extends(quiz)).
-    :- meta_non_terminal(html_write:html(*)).
-
-    :- protected(questions/1).
-
-    :- public(pl_questions//0).
-    pl_questions --> { ::questions(Qs), meta::map([In, Out]>>(term_to_atom(In, A), atomic_concat(A, '.', Out)), Qs, As)},
-        html_write:html(script([type('text/prolog'), id('questions.pl')], \As)). % \As is list writing shortcut...
-
-:- end_object.
-
-
-:- object(mcq,
-    extends(question_quiz)).
-    :- meta_non_terminal(html_write:html(*)).
-
-    required_script('mcq.js').
-
-    :- protected(question_options/1).
-
-    :- private(mcq_quiz//0).
-    mcq_quiz --> { self(Self) }, html_write:html(div(class(row),
-        [ div(class('col-sm-9'),
-            [ div(class('table-responsive'),
-                table(class([table, 'table-striped', 'sticky-header']),
-                [ thead(class('bg-white'), tr([th([]), Self::th_opt]))
-                    , tbody(Self::mcq_questions)
-                    ]))
-            %, input( [ id(submitbtn), type(button), value("Submit"), class([btn, 'btn-primary', disabled, 'mr-3'])], [])
-            %, label( [ for(submitbtn), class('text-muted') ], small("You must be logged in to track your learning"))
-            ])
-        , div(class('col-sm-3'), ul([class('list-group'), id(feedback)], []))
-        , Self::pl_questions
-        ])
-    ).
-
-    :- public(th_opt//0).
-    :- private(th_opt_//1).
-    th_opt --> { ::question_options(Opts) }, th_opt_(Opts).
-    th_opt_([]) --> [].
-    th_opt_([Opt|Tail]) --> html_write:html(th([class('text-center'), scope(col)], Opt)), th_opt_(Tail).
-
-    :- public(mcq_questions//0).
-    :- private(mcq_questions_//2).
-    mcq_questions --> { ::question_options(Opts), ::questions(Qs) }, mcq_questions_(Opts, Qs).
-    mcq_questions_(_, []) --> [].
-    mcq_questions_(Opts, [question(Name, _, _)|T]) --> { this(This) },
-        html_write:html(tr(
-            [ th([class(['text-right']), scope(row)], Name)
-            , This::mcq_question(Opts, Name)
-            ])
-        ),
-        mcq_questions_(Opts, T).
-
-    :- public(mcq_question//2).
-    mcq_question([], _) --> [].
-    mcq_question([Opt|T], Name) -->
-        html_write:html(td(class('text-center'), label(class(['btn btn-secondary']), input([type(radio), name(Name), id("~w~w"-[Name, Opt]), value(Opt)], [])))),
-        mcq_question(T, Name).
-
-    content -->
-        ::heading2,
-        ::subcontent,
-        ::mcq_quiz.
 :- end_object.
