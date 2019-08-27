@@ -32,7 +32,6 @@ html_write:code_query(ID, Query) --> {random_id(UID)},
     ).
 
 random_id(ID) :-
-    length(Codes, 12),
-    maplist(random_between(97, 122), Codes),
-    maplist(char_code, Chars, Codes),
-    atomic_list_concat(Chars, ID).
+     length(Codes, 12),
+     maplist(random_between(97, 122), Codes),
+     atom_codes(ID, Codes).
