@@ -12,7 +12,7 @@ html_write:code_block(ID, Block) -->
     html(textarea([class([code, 'form-control', 'mb-2', 'text-monospace']), id(ID), rows(Rows)], Code)).
 
 % A Query for a code block
-html_write:code_query(ID, Query) --> {random_id(UID)}, 
+html_write:code_query(ID, Query) --> {random_id(UID)},
     html(
         div(class('form align-items-center'), [
             div(class('input-group mb-2'), [

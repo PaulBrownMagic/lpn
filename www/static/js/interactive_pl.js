@@ -14,7 +14,7 @@ function onActionBtnKeyDown(self, event, code, input) {
 }
 
 function onActionBtnClick(self, code, input) {
-    const role = $(self).data('role') 
+    const role = $(self).data('role')
     if (role === 'clear') {
         clear_answers(input);
     } else if (role === 'next') {
@@ -25,7 +25,7 @@ function onActionBtnClick(self, code, input) {
 }
 
 function query(code, qid) {
-    
+
     sessions[qid.id] = pl.create(1000)
 
     // Parse code
@@ -35,7 +35,7 @@ function query(code, qid) {
     // Parse query
     const query_parsed = sessions[qid.id].query(qid.value)
     if (query_parsed !== true) { pl_answer(qid)(query_parsed) }
-    
+
     next(qid)
 }
 
