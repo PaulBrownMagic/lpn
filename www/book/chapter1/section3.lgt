@@ -115,7 +115,7 @@ father(Y, Z) :- man(Y), daughter(Z, Y).')
 
 
 :- object('1.3.6',
-    extends(leaf_section)).
+    extends(input_markscheme_quiz)).
 
     title("Representing Facts and Rules").
     questions([ question('Butch is a killer.', 'killer(butch).')
@@ -125,16 +125,8 @@ father(Y, Z) :- man(Y), daughter(Z, Y).')
               , question('Mia loves everyone who is a good dancer.', 'love(mia, X) :- good_dancer(X).')
               , question('Jules eats anything that is nutritious or tasty', 'eat(jules, X) :- nutritious(X) ; tasty(X).')
               ]).
-    subcontent(
-        [ p("Represent the following in Prolog:")
-        , div(class(row),
-            [ \input_mark_quiz('1.3.6')
-            , div([id(markscheme), class(['col'])],
-                [ input([type(button), class([btn, 'btn-primary']), value('Check Answers'), onclick('markscheme()')], [])
-                , p(class([collapse, markscheme]), ["Here is an example of what your answers could look like.  They, of course, don't have to look ", em("exactly"), " like that. For example, the first fact could also be ", \inline_code("killer('Butch')"), " or ", \inline_code("killer(b)"), " or even ", \inline_code("k(50)"), ", if you decide to represent Butch by the number 50 and the property of being a killer by the predicate ", \inline_code("k/1"), "."])
-                ])
-            ])
-        ]).
+    markscheme(["Here is an example of what your answers could look like.  They, of course, don't have to look ", em("exactly"), " like that. For example, the first fact could also be ", \inline_code("killer('Butch')"), " or ", \inline_code("killer(b)"), " or even ", \inline_code("k(50)"), ", if you decide to represent Butch by the number 50 and the property of being a killer by the predicate ", \inline_code("k/1"), "."]).
+    subcontent(p("Represent the following in Prolog:")).
 :- end_object.
 
 

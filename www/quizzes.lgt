@@ -29,8 +29,8 @@
 
     :- protected(question_options/1).
 
-    :- private(mcq_quiz//0).
-    mcq_quiz --> { self(Self) }, html_write:html(div(class(row),
+    :- private(quiz//0).
+    quiz --> { self(Self) }, html_write:html(div(class(row),
         [ div(class('col-sm-9'),
             [ div(class('table-responsive'),
                 table(class([table, 'table-striped', 'sticky-header']),
@@ -69,7 +69,7 @@
         html_write:html(td(class('text-center'), label(class(['btn btn-secondary']), input([type(radio), name(Name), id("~w~w"-[Name, Opt]), value(Opt)], [])))),
         mcq_question(T, Name).
 
-    content --> ::quiz_heading, ::mcq_quiz.
+    content --> ::quiz_heading, ::quiz.
 :- end_object.
 
 
@@ -79,13 +79,18 @@
 
     required_script('input_compare.js').
 
-    :- private(ic_quiz//0).
-    ic_quiz --> {self(Self)},
-    html_write:html(div(class(row),
-        [ div(class('col-sm-9'), form(id(quiz), Self::compare_questions))
-        , div(class('col-sm-3'), ul([class('list-group'), id(feedback)], []))
+    :- public(quiz//0).
+    quiz --> {self(Self)},
+    html_write:html(
+        [div(class(row),
+            [ div(class('col-sm-9'), form(id(quiz), Self::compare_questions))
+            , Self::feedback
+            ])
         , Self::pl_questions
-        ])).
+        ]).
+
+    :- public(feedback//0).
+    feedback --> html_write:html(div(class('col-sm-3'), ul([class('list-group'), id(feedback)], []))).
 
     :- public(compare_questions//0).
     :- private(compare_questions_//1).
@@ -99,5 +104,35 @@
         ),
         compare_questions_(T).
 
-    content --> ::quiz_heading, ::ic_quiz.
+    content --> ::quiz_heading, ::quiz.
+:- end_object.
+
+
+:- object(input_markscheme_quiz,
+    extends(input_compare_quiz)).
+    :- meta_non_terminal(html_write:html(*)).
+
+    :- private(markscheme/1).
+
+    required_script('input_markscheme.js').
+
+    compare_questions --> { ::questions(Qs) }, mark_questions(Qs).
+    mark_questions([]) --> [].
+    mark_questions([question(Q, A)|T]) --> {{random_id(ID)}}, % random_id defined in code_components
+        html_write:html([ div(class('input-group'),
+                [ div(class('input-group-prepend'), span([class('input-group-text')], Q))
+                , input([type(text), class('form-control answer text-monospace text-right'), 'aria-describedby'=Q, id(ID), 'data-answer'=A], [])
+                , div(class('input-group-append markscheme collapse'), div(class('input-group-text'), input([type(checkbox), 'aria-label'='Mark prior answer as correct', onclick('validate(~q, this.checked)'-[ID])], [])))
+                ])
+                , p(class(['form-text', 'text-right', 'markscheme', collapse]), \inline_code(A))
+            ]
+        ),
+        mark_questions(T).
+
+    feedback --> { ::markscheme(M) },
+        html_write:html(div([id(markscheme), class(['col'])],
+            [ input([type(button), class([btn, 'btn-primary']), value('Check Answers'), onclick('markscheme()')], [])
+            , p(class([collapse, markscheme]), M)
+            ])
+        ).
 :- end_object.

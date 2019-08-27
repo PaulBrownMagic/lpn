@@ -40,9 +40,14 @@ say_hi(_R) :-
         ]
     ).
 
+is_page(N, Page) :-
+    current_object(N),
+    N::current_predicate(title/1),
+    N::title(Page).
+
 % All book content served via /section/N where N is a unique identifying number
 reply_lpn_section(N, _Request) :-
-    query(N, title, Page),
+    is_page(N, Page),
     reply_html_page(
 	    lpn_base(N),   % the base layout of the page, into which content is inserted
         % Head
@@ -60,7 +65,7 @@ reply_lpn_section(N, _Request) :-
 
 % Can't find page with identifier N, so 404
 reply_lpn_section(N, R) :-
-    \+ query(N, title, _), % Page is not known
+    \+ is_page(N, _), % Page is not known
     http_404([], R).
 
 
@@ -74,23 +79,3 @@ body(lpn_base(N), Body) -->
                   , \scripts(N)
                   ])
               ).
-
-% A Page whose purpose is to point to it's children
-navigation_artifact(Number, Title) -->
-    html(
-    [ div(class(chapter_header),
-        [ h2(class('chapter_num text-right mb-5'), "Chapter ~w"-[Number])
-        , h1(class('chapter_title text-right border-bottom border-dark mb-3'), Title)
-        ])
-    , div(class(row),
-        [ div(class(col),
-            [ h5("Sections:")
-            , \navigation_children(Number)
-            ])
-        , \chapter_goals(Number)
-        ])
-    ]
- ).
-
-
-
