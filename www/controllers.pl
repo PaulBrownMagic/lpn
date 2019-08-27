@@ -1,10 +1,14 @@
+:- module(controllers,
+    [ say_hi/1
+    , reply_lpn_section/2
+    ]
+).
+
 :- use_module(library(http/html_write), [reply_html_page//1, html//1]).
 :- use_module(library(http/http_dispatch), [http_404/2]).
 
-:- ensure_loaded(www(html_components/html_components)).
-:- ensure_loaded(www(book/book)).
-:- ensure_loaded(www(ont/query)).
 :- ensure_loaded(www(sections)).
+:- ensure_loaded(www(html_components/html_components)).
 
 % tmp home page
 say_hi(_R) :-
@@ -40,11 +44,6 @@ say_hi(_R) :-
         ]
     ).
 
-is_page(N, Page) :-
-    current_object(N),
-    N::current_predicate(title/1),
-    N::title(Page).
-
 % All book content served via /section/N where N is a unique identifying number
 reply_lpn_section(N, _Request) :-
     is_page(N, Page),
@@ -67,6 +66,11 @@ reply_lpn_section(N, _Request) :-
 reply_lpn_section(N, R) :-
     \+ is_page(N, _), % Page is not known
     http_404([], R).
+
+is_page(N, Page) :-
+    current_object(N),
+    N::current_predicate(title/1),
+    N::title(Page).
 
 
 % Body will be included

@@ -24,8 +24,8 @@ ako(A, B) :-
 :- initialization((
 	logtalk_load(
         [ library(metapredicates_loader) % meta::map
-        , sections
-        , quizzes
+        , 'book/sections'
+        , 'book/quizzes'
         , 'book/book'
         ],
         [ % required file specific compiler options

@@ -1,2 +1,2 @@
-:- {chapters}.
-:- {'chapter1/chapter1'}.
+:- {'chapters/chapters'}.
+:- {'chapters/chapter1/chapter1'}.

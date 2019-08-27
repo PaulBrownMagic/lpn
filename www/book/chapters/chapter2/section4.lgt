@@ -1,7 +1,9 @@
-section('1.4') -->
-    html(
-        [ \section_heading1('1.4')
-        , p("Don’t be fooled by the fact that the description of the practical sessions is shorter than the text you have just read; the practical part is definitely the most important. Yes, you need to read the text and do the exercises, but that’s not enough to become a Prolog programmer. To really master the language you need to sit down in front of a computer and play with Prolog — a lot!")
+:- object('1.4',
+    extends(practice)).
+    keyTerms(['trace mode']).
+
+    subcontent(
+        [ p("Don’t be fooled by the fact that the description of the practical sessions is shorter than the text you have just read; the practical part is definitely the most important. Yes, you need to read the text and do the exercises, but that’s not enough to become a Prolog programmer. To really master the language you need to sit down in front of a computer and play with Prolog — a lot!")
         , p("The goal of the first practical session is for you to become familiar with the basics of how to create and run simple Prolog programs. Now, because there are many different implementations of Prolog, and different operating systems you can run them under, we can’t be too specific here. Rather, what we’ll do is describe in very general terms what is involved in running Prolog, list the practical skills you need to master, and suggest some things for you to do.")
         , p(["The simplest way to run a Prolog program is as follows. You have a file with your Prolog program in it (for example, you may have a file ", \inline_code("kb2.pl"), " which contains the knowledge base KB2). You then start Prolog. Prolog will display its prompt, something like"])
         , \static_code_block("?-")
@@ -58,6 +60,5 @@ yes')
         , p("The sooner you pick up these skills, the better. With them out of the way (which shouldn’t take long) you can start concentrating on mastering Prolog (which will take longer).")
         , p(["But assuming you have mastered these skills, what next? Quite simply, ", em("play with Prolog!"), " Consult the various knowledge bases discussed in the text, and check that the queries discussed really do work the way we said they did. In particular, take a look at KB5 and make sure you understand why you get those peculiar jealousy relations. Try posing new queries. Experiment with the ", \inline_code("listing"), " predicate (it’s a useful tool). Type in the knowledge base used in Exercise  1.5 , and check whether your answers are correct. Best of all, think of some simple situation that interests you, and create a brand-new knowledge base from scratch. "])
         ]
-    ).
-
-
+).
+:- end_object.

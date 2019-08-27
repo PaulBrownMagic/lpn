@@ -13,6 +13,15 @@ can be integrated with the other services such that if we notice someone
 taking a project doesn't know something taught in the book we can point
 them towards the relevant section.
 
+### Requirements
+
+Requires Logtalk (developing with 3.28.0). This can be installed with
+the query:
+
+```
+?- pack_install(logtalk).
+```
+
 ### Running
 
 The web-server is in `www/server.pl`. In the `www` directory I tend to
@@ -20,29 +29,10 @@ run `swipl -g serve -s server.pl`
 
 ### Directories
 
-- ont    ontology containing all the information about the parts of the
-  book
 - www    contains source and server for website
+- www/book contains all the Logtalk Objects that describe the content
+- www/html_components contains html components... surprise!
 
-### Prototype concerns
-
-Far too much use of `ensure_loaded/1`, will need to turn into modules.
-
-### Ontology Concerns
-
-Ontology is written in frames and compiled to triples for efficiency.
-`query.pl` provides `query/1` and `query/3` predicates for ontology
-access. Currently there's nothing smart about the ontology reasoning,
-which is sufficient for serving content.
-
-The learning objectives part of the ontology is for a future endeavour
-that will permit users to track their learning, perhaps earning badges.
-We will be able to tell a user what they've been taught and what we have
-assessed them to know. The data structures of the actual objectives are
-strict, the verb predicates are taken from Bloom's revised taxonomy and
-are not yet described in the documentation, but are in the book: "A Taxonomy for
-Learning, Teaching and Assessing". I'll write up a "how-to" guide for
-tagging these, but it's not urgent.
 
 ### Web Concerns
 
@@ -81,26 +71,10 @@ due to how it navigates the DOM.
 
 ### Quizzes
 
-So far only an MCQ framework has been implemented.
-
-The other types of quizzes required in chapter 1 will be an auto-compare
-based on a text input. Eg:
-
----
-
-* What's the functor/arity of...*
-
-- `boxer(Butch)`  [ boxer/2 ]
-
----
-
-Where 'boxer/2' is typed by the user into a text input box and we check
-it against a known answer.
-
-There's also a need for a manually checked one, we'll opt for
-self-assessed. This will need a place to type, and a button that will
-reveal the marking scheme and checkboxes for users to mark their work
-correct.
+There are many types of these... See `book/quizzes.lgt` for the
+implemented ones. Each quiz has a `required_script`, which is the
+JavaScript to be loaded for the interactivity. These are stored in
+`static/js/quizzes/`
 
 ### Practice Sessions
 

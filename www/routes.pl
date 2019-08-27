@@ -1,5 +1,11 @@
+:- module(routes, []).
+
 :- use_module(library(http/http_files)).
-:- ensure_loaded(www(lpn_html)).
+:- use_module(www(controllers),
+    [ say_hi/1
+    , reply_lpn_section/2
+    ]
+).
 
 http:location(static, '/static', []).
 http:location(section, '/section', []).

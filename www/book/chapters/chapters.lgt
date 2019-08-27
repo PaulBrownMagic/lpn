@@ -6,3 +6,12 @@
           , "To begin the systematic study of Prolog by defining terms, atoms, variables and other syntactic concepts."
           ]).
 :- end_object.
+
+:- object('2',
+    extends(chapter)).
+    title('Unification and Proof Search').
+    children(['2.1', '2.2', '2.3', '2.4']).
+    goals(["To discuss unification in Prolog, and to explain how Prolog unification differs from standard unification. Along the way, we'll introduce =/2, the built-in predicate for Prolog unification, and unify_with_occurs_check/2, the built in predicate for standard unification"
+          , "To explain the search strategy Prolog uses when it tries to deduce new information from old using modus ponens"
+          ]).
+:- end_object.
