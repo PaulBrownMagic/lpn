@@ -18,18 +18,18 @@ navbar(N) -->
 
 breadcrumbs(N, O) -->
     { dif(N, O), \+ has_parent(N, _), N::title(T) },
-    html(li([class('breadcrumb-item'), aria-current=page], a([href("/section/~w"-[N])], "~w: ~w"-[N, T]))).
+    html(li([class('breadcrumb-item'), aria-current=page], a([href("/section/~w"-[N])], small([N, ': ', T])))).
 breadcrumbs(N, N) -->
     { \+ has_parent(N, _), N::title(T) },
-    html(li([class('breadcrumb-item active'), aria-current=page], "~w: ~w"-[N, T])).
+    html(li([class('breadcrumb-item active'), aria-current=page], small([N, ': ', T]))).
 breadcrumbs(N, O) -->
     { dif(N, O), has_parent(N, P), N::title(T) },
     breadcrumbs(P, O),
-    html(li([class('breadcrumb-item'), aria-current=page], a([href("/section/~w"-[N])], "~w: ~w"-[N, T]))).
+    html(li([class('breadcrumb-item'), aria-current=page], a([href("/section/~w"-[N])], small([N, ': ', T])))).
 breadcrumbs(N, N) -->
     { has_parent(N, P), N::title(T) },
     breadcrumbs(P, N),
-    html(li([class('breadcrumb-item active'), aria-current=page], "~w: ~w"-[N, T])).
+    html(li([class('breadcrumb-item active'), aria-current=page], small([N, ': ', T]))).
 
 child_or_sibling(N) --> % child
     { has_parent(C, N), C::title(T) },
