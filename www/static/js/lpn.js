@@ -2,7 +2,14 @@ reload_booknav() // call before doc rendered to replace loading html
 
 // enable footnotes
 $(document).ready(function() {
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').each(function() {
+        var $elem = jQuery(this);
+        $elem.tooltip({
+            // html:true, Would be nice, will need custom attr expand
+            container: $elem,  // Can hover on tooltip, so users can select text in it
+            delay: {hide:400}
+        });
+    });
  });
 
 
