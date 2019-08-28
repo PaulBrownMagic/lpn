@@ -87,8 +87,11 @@ sidenav_a(N, T) -->
     html(a([class(['nav-link', 'd-inline']), id("n~w"-[N]), href("/section/~w"-[N])], "~w: ~w"-[N, T])).
 
 
-html_write:footnote(Content) -->
+html_write:footnote(Content) --> { \+ is_list(Content) },
     html(small(class('text-primary'), span([class(footnote), 'data-toggle'=tooltip, title(Content)], []))).
+
+html_write:footnote(Content) --> { is_list(Content), phrase(html(Content), Codes), with_output_to(atom(HTML), print_html(Codes)) },
+    html(small(class('text-primary'), span([class(footnote), 'data-toggle'=tooltip, title(HTML)], []))).
 
 html_write:diagram(Src, Alt) --> { atom_concat('/static/images/', Src, Img) },
     html(img([class(['mx-auto', 'd-block', diagram]), alt(Alt), src(Img)], [])).
