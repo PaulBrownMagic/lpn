@@ -1,5 +1,6 @@
 body {
   padding-top: 5rem;
+  counter-reset: footnotecounter;
 }
 .starter-template {
   padding: 3rem 1.5rem;
@@ -21,10 +22,17 @@ body {
 
 .caret-down::before {
   -ms-transform: rotate(90deg); /* IE 9 */
-  -webkit-transform: rotate(90deg); /* Safari */'
+  -webkit-transform: rotate(90deg); /* Safari */
   transform: rotate(90deg);
 }
 
 #booknav {
     top: 4rem;
+}
+
+span.footnote:before {
+  counter-increment: footnotecounter;
+  content: counter(footnotecounter);
+  position: relative;
+  top: -0.4em;
 }

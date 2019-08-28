@@ -1,5 +1,11 @@
 reload_booknav() // call before doc rendered to replace loading html
 
+// enable footnotes
+$(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip()
+ });
+
+
 function expand_book_nav(caret) {
     $(caret).toggleClass('caret-down')
     $($(caret).parent().next("ul")).toggleClass('show')

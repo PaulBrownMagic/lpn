@@ -29,8 +29,10 @@ function query(code, qid) {
     sessions[qid.id] = pl.create(1000)
 
     // Parse code
-    const parsed = sessions[qid.id].consult(code.value)
-    if (parsed !== true) { pl_answer(qid)(parsed) }
+    if (code) {
+        const parsed = sessions[qid.id].consult(code.value)
+        if (parsed !== true) { pl_answer(qid)(parsed) }
+    }
 
     // Parse query
     const query_parsed = sessions[qid.id].query(qid.value)

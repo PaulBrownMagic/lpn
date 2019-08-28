@@ -63,11 +63,11 @@
 
 :- object('2.3.4',
     extends(input_compare_quiz)).
-    title("Unification Order Through Rules" % In what order do these unify).
-    questions([ question('Hermione = dobby.', '1', 'Prolog checks rules from top to bottom')
-              , question('Hermione = house_elf', '', 'Prolog cannot unify X with a functor')
-              , question('Hermione = hermione', '2', 'Prolog checks facts from top to bottom')
-              , question('Hermione = rita_skeeter', '4', 'Prolog checks facts from top to bottom')
+    title("Unification Order Through Rules"). % In what order do these unify).
+    questions([ question('Hermione = dobby.',         '1', 'Prolog checks rules from top to bottom')
+              , question('Hermione = house_elf',       '', 'Prolog cannot unify X with a functor')
+              , question('Hermione = hermione',       '2', 'Prolog checks facts from top to bottom')
+              , question('Hermione = rita_skeeter',   '4', 'Prolog checks facts from top to bottom')
               , question('Hermione = \'McGonagall\'', '3', 'Prolog checks facts from top to bottom')
               ]).
 

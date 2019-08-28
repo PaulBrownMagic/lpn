@@ -87,3 +87,5 @@ sidenav_a(N, T) -->
     html(a([class(['nav-link', 'd-inline']), id("n~w"-[N]), href("/section/~w"-[N])], "~w: ~w"-[N, T])).
 
 
+html_write:footnote(Content) -->
+    html(small(class('text-primary'), span([class(footnote), 'data-toggle'=tooltip, title(Content)], []))).
