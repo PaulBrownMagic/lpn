@@ -89,3 +89,6 @@ sidenav_a(N, T) -->
 
 html_write:footnote(Content) -->
     html(small(class('text-primary'), span([class(footnote), 'data-toggle'=tooltip, title(Content)], []))).
+
+html_write:diagram(Src, Alt) --> { atom_concat('/static/images/', Src, Img) },
+    html(img([class(['mx-auto', 'd-block', diagram]), alt(Alt), src(Img)], [])).

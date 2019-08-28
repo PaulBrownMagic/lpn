@@ -1,4 +1,4 @@
-:- object('1.4',
+:- object('2.4',
     extends(practice)).
     keyTerms(['trace mode']).
 
