@@ -118,7 +118,7 @@
 
     compare_questions --> { ::questions(Qs) }, mark_questions(Qs).
     mark_questions([]) --> [].
-    mark_questions([question(Q, A)|T]) --> {{random_id(ID)}}, % random_id defined in code_components
+    mark_questions([question(Q, A)|T]) --> {random_id(ID)}, % random_id defined in code_components
         html_write:html([ div(class('input-group'),
                 [ div(class('input-group-prepend'), span([class('input-group-text')], Q))
                 , input([type(text), class('form-control answer text-monospace text-right'), 'aria-describedby'=Q, id(ID), 'data-answer'=A], [])
@@ -135,4 +135,10 @@
             , p(class([collapse, markscheme]), M)
             ])
         ).
+
+
+    random_id(ID) :-
+         length(Codes, 12),
+         meta::map({random_between(97, 122)}, Codes),
+         atom_codes(ID, Codes).
 :- end_object.

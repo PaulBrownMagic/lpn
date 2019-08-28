@@ -7,7 +7,7 @@
 :- object('2.3.1',
     extends(mcq)).
     title("Unification Success and Failure").
-    question_opts([unifies, fails]).
+    question_options([unifies, fails]).
     questions([ question('bread = bread', unifies, 'unification succeeds when both sides of = are identical')
               , question('\'Bread\' = bread', fails, 'atoms must be absolutely identical, ignoring single quotation marks (\'), for unification to succeed')
               , question('\'bread\' = bread', unifies, 'atoms must be absolutely identical, ignoring single quotation marks (\'), for unification to succeed')
@@ -24,14 +24,14 @@
               , question('meal(food(bread), X) = meal(X, drink(beer))', fails, 'variables unify across the whole expression and cannot unify with two different complex terms')
               ]).
 
-    subcontent(p("Which of the following sequences of characters are atoms, which are variables, and which are neither?")).
+    subcontent(p("Which of the following pairs of terms unify?")).
 :- end_object.
 
 
 :- object('2.3.2',
     extends(input_compare_quiz)).
     title("Unification With Variables").
-    questions([ question('Bread = bread', 'Bread = bread', 'a variable will unify with anything')
+    questions([ question('Bread = bread', 'Bread = bread', 'the variable always preceeds the unification term: Bread = bread')
               , question('food(bread) = X', 'X = food(bread)', 'a variable will unify with anything')
               , question('food(X) = food(bread)', 'X = bread', 'variables in complex terms will unify with atoms in matching positions of the same predicate')
               , question('food(bread, X) = food(Y, sausage)', 'X = sausage, Y = bread', 'variables in complex terms will unify with atoms in matching positions of the same predicate')
@@ -39,7 +39,7 @@
               , question('meal(food(bread), drink(beer)) = meal(X, Y)', 'X = food(bread), Y = drink(beer)', 'variables in complex terms will unify with complex terms in matching positions of the same predicate')
               ]).
 
-    subcontent(p("Which of the following sequences of characters are atoms, which are variables, which are complex terms, and which are not terms at all?")).
+    subcontent(p("Give the variable instantiations that lead to successful unification, in the format: Var = term")).
 :- end_object.
 
 
@@ -55,8 +55,17 @@
               ]).
 
     subcontent(
-        [ p("What is the functor and arity of each of these complex terms?")
-        , p([em("Remember: functor and arity is written as "), \inline_code("functor/arity")])
+        [ p("We are working with the following knowledge base:")
+        , \static_code_block(
+            [ "house_elf(dobby)."
+            , "witch(hermione)."
+            , "witch(’McGonagall’)."
+            , "witch(rita_skeeter)."
+            , "magic(X):-  house_elf(X)."
+            , "magic(X):-  wizard(X)."
+            , "magic(X):-  witch(X)."
+            ])
+        , p("Which of the following queries are satisfied?")
         ]).
 :- end_object.
 
@@ -72,15 +81,17 @@
               ]).
 
     subcontent(
-        [ p("How many facts, rules, clauses and predicates are there in the following knowledge base?")
+        [ p("We are working with the following knowledge base:")
         , \static_code_block(
-'woman(vincent).
-woman(mia).
-man(jules).
-person(X) :- man(X) ; woman(X).
-loves(X, Y) :- father(X, Y).
-father(Y, Z) :- man(Y) , son(Z, Y).
-father(Y, Z) :- man(Y), daughter(Z, Y).')
+            [ "house_elf(dobby)."
+            , "witch(hermione)."
+            , "witch(’McGonagall’)."
+            , "witch(rita_skeeter)."
+            , "magic(X):-  house_elf(X)."
+            , "magic(X):-  wizard(X)."
+            , "magic(X):-  witch(X)."
+            ])
+        , p("In what order are these variable instantiations returned? Give the number 'eg. 1' or leave it blank if it's not returned")
         ]).
 :- end_object.
 
@@ -91,16 +102,19 @@ father(Y, Z) :- man(Y), daughter(Z, Y).')
     title("Unification Proof Tree").
 
     subcontent(
-        [ p("Identify the heads, bodies and goals in the following knowledge base.")
+        [ p("We are working with the following knowledge base:")
         , \static_code_block(
-'woman(vincent).
-woman(mia).
-man(jules).
-person(X) :- man(X) ; woman(X).
-loves(X, Y) :- father(X, Y).
-father(Y, Z) :- man(Y) , son(Z, Y).
-father(Y, Z) :- man(Y), daughter(Z, Y).')
+            [ "house_elf(dobby)."
+            , "witch(hermione)."
+            , "witch(’McGonagall’)."
+            , "witch(rita_skeeter)."
+            , "magic(X):-  house_elf(X)."
+            , "magic(X):-  wizard(X)."
+            , "magic(X):-  witch(X)."
+            ])
+        , p(["Draw the search tree for the query ", \inline_code("magic(Hermione)")])
         ]).
+
 :- end_object.
 
 
@@ -141,8 +155,27 @@ father(Y, Z) :- man(Y), daughter(Z, Y).')
               , question('32', 'every big kahuna burger likes every big kahuna burger')
               ]).
 
-    markscheme(["Here is an example of what your answers could look like.  They, of course, don't have to look ", em("exactly"), " like that. For example, the first fact could also be ", \inline_code("killer('Butch')"), " or ", \inline_code("killer(b)"), " or even ", \inline_code("k(50)"), ", if you decide to represent Butch by the number 50 and the property of being a killer by the predicate ", \inline_code("k/1"), "."]).
-    subcontent(p("Represent the following in Prolog:")).
+    markscheme([]).
+    subcontent([ p("Here is a tiny lexicon (that is, information about individual words) and a mini grammar consisting of one syntactic rule (which defines a sentence to be an entity consisting of five words in the following order: a determiner, a noun, a verb, a determiner, a noun).")
+               , \static_code_block(
+                   [ "word(determiner,a)."
+                   , "word(determiner,every)."
+                   , "word(noun,criminal)."
+                   , "word(noun,’big  kahuna  burger’)."
+                   , "word(verb,eats)."
+                   , "word(verb,likes)."
+                   , ""
+                   , "sentence(Word1,Word2,Word3,Word4,Word5):-"
+                   , "      word(determiner,Word1),"
+                   , "      word(noun,Word2),"
+                   , "      word(verb,Word3),"
+                   , "      word(determiner,Word4),"
+                   , "      word(noun,Word5)."
+                   ])
+              , p(["List all sentences that this grammar can generate in the order that Prolog will generate them in."])
+              , p("Note: the auto-marker expects the format: a criminal eats a criminal")
+              ]
+          ).
 :- end_object.
 
 
@@ -170,14 +203,19 @@ father(Y, Z) :- man(Y), daughter(Z, Y).')
     V1 \\= H1, V2 \\= H2, V3 \\= H3.').
 
     subcontent(
-        [ p("Suppose we are working with the following knowledge base:")
+        [ p(["Here are six Italian words:"])
+        , p(em("astante, astoria, baratto, cobalto, pistola, statale."))
+        , p(["They are to be arranged, crossword puzzle fashion, in the following grid:"])
+        , \diagram("chapter2/grid.png", "Crossword Grid")
+        , p(["The following knowledge base represents a lexicon containing these words:"])
         , \static_code_block(
-'wizard(ron).
-hasWand(harry).
-quidditchPlayer(harry).
-wizard(X) :- hasBroom(X), hasWand(X).
-hasBroom(X) :- quidditchPlayer(X).
-')
-        , p("How does Prolog respond to the following queries?")
+            [ "word(astante,  a,s,t,a,n,t,e)."
+            , "word(astoria,  a,s,t,o,r,i,a)."
+            , "word(baratto,  b,a,r,a,t,t,o)."
+            , "word(cobalto,  c,o,b,a,l,t,o)."
+            , "word(pistola,  p,i,s,t,o,l,a)."
+            , "word(statale,  s,t,a,t,a,l,e)."
+            ])
+        , p(["Write a predicate ", \inline_code("crossword/6"), " that tells us how to fill in the grid. The first three arguments should be the vertical words from left to right, and the last three arguments the horizontal words from top to bottom. "])
         ]).
 :- end_object.
