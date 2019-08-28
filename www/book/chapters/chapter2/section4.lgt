@@ -3,62 +3,80 @@
     keyTerms(['trace mode']).
 
     subcontent(
-        [ p("Don’t be fooled by the fact that the description of the practical sessions is shorter than the text you have just read; the practical part is definitely the most important. Yes, you need to read the text and do the exercises, but that’s not enough to become a Prolog programmer. To really master the language you need to sit down in front of a computer and play with Prolog — a lot!")
-        , p("The goal of the first practical session is for you to become familiar with the basics of how to create and run simple Prolog programs. Now, because there are many different implementations of Prolog, and different operating systems you can run them under, we can’t be too specific here. Rather, what we’ll do is describe in very general terms what is involved in running Prolog, list the practical skills you need to master, and suggest some things for you to do.")
-        , p(["The simplest way to run a Prolog program is as follows. You have a file with your Prolog program in it (for example, you may have a file ", \inline_code("kb2.pl"), " which contains the knowledge base KB2). You then start Prolog. Prolog will display its prompt, something like"])
+        [ p(["By this stage, you should have had your first taste of running Prolog programs. The purpose of the second practical session is to suggest two sets of keyboard exercises which will help you get familiar with the way Prolog works. The first set has to do with unification, the second with proof search."])
+        , p(["First of all, start up your Prolog interpreter. That is, get a screen displaying the usual “I’m ready to start” prompt, which probably looks something like:"])
         , \static_code_block("?-")
-        , p("which indicates that it is ready to accept a query.")
-        , p("Now, at this stage, Prolog knows absolutely nothing about KB2 (or indeed anything else). To see this, type in the command listing , followed by a full stop, and hit return. That is, type")
-        , \static_code_block("?-  listing.")
-        , p("and press the return key.")
-        , p("Now, the listing command is a special built-in Prolog predicate that instructs Prolog to display the contents of the current knowledge base. But we haven’t yet told Prolog about any knowledge bases, so it will just say")
+        , p(["Verify your answers to Exercise 2.1, the unification examples. You don’t need to consult any knowledge bases, simply ask Prolog directly whether it is possible to unify the terms by using the built-in ", \inline_code("=/2"), " predicate. For example, to test whether ", \inline_code("food(bread,X)"), " and ", \inline_code("food(Y,sausage)"), " unify, just type in"])
+        , \static_code_block("food(bread,X)  =  food(Y,sausage).")
+        , p(["and hit return."])
+        , p(["You should also look at what happens when your Prolog implementation attempts to unify terms that can’t be unified because it doesn’t carry out an occurs check. For example, see what happens when you give it the following query:"])
+        , \code_query("g(X,Y)  =  Y.")
+        , p(["If it handles such examples, try the trickier one mentioned in the text:"])
+        , \code_query("X =  f(X),  Y  =  f(Y),  X  =  Y.")
+        , p(["Once you’ve experimented with that, it’s time to move on to something new. There is another built-in Prolog predicate for answering queries about unification, namely ", \inline_code("\\=/2"), " (that is: the 2-place predicate ", \inline_code("\\="), " ). This works in the opposite way to the ", \inline_code("=/2"), " predicate: it succeeds when its two arguments do ", em("not"), " unify. For example, the terms ", \inline_code("a"), " and ", \inline_code("b"), " do not unify, which explains the following dialogue:"])
+        , \code_query("a  \\=  b.")
         , \static_code_block("yes")
-        , p("This is a correct answer: as yet Prolog knows nothing — so it correctly displays all this nothing and says yes . Actually, with more sophisticated Prolog implementations you may get a little more (for example, the names of libraries that have been loaded; libraries are discussed in Chapter  12 ) but, one way or another, you will receive what is essentially an “I know nothing about any knowledge bases!” answer.")
-        , p(["So let’s tell Prolog about KB2. Assuming that you’ve stored KB2 in the file ", \inline_code("kb2.pl"), " , and that this file is in the directory where you’re running Prolog, all you have to type is"])
-        , \static_code_block("?-  [kb2].")
-        , p(["This tells Prolog to consult the file ", \inline_code("kb2.pl"), " , and load the contents as its new knowledge base. Assuming that ", \inline_code("kb2.pl"), " contains no typos, Prolog will read it in, maybe print out a message saying that it is consulting this file, and then answer:"])
-        , \static_code_block("yes")
-        , p(["Incidentally, it is common to store Prolog code in files with a ", \inline_code(".pl"), " suffix. It’s an indication of what the file contains (namely Prolog code) and with some Prolog implementations you don’t actually have to type in the ", \inline_code(".pl"), " suffix when you consult a file. Nice — but there is a drawback. Files containing Perl scripts usually have a ", \inline_code(".pl"), " suffix too, and nowadays there are a lot of Perl scripts in use, so this can cause confusion. C’est la vie."])
-        , p("If the above doesn’t work, that is, if typing")
-        , \static_code_block("?-  [kb2].")
-        , p(["produces an error message saying that the file ", \inline_code("kb2"), " does not exist, then you probably haven’t started Prolog from the directory where ", \inline_code("kb2.pl"), " is stored. In that case, you can either stop Prolog (by typing ", \inline_code("halt."), " after the prompt), change to the directory where ", \inline_code("kb2.pl"), " is stored, and start Prolog again. Or you can tell Prolog exactly where to look for ", \inline_code("kb2.pl"), " . To do this, instead of writing only ", \inline_code("kb2"), " between the square brackets, you give Prolog the whole path enclosed in single quotes. For example, you type something like"])
-        , \static_code_block("?-  [’home/kris/Prolog/kb2.pl’].")
-        , p("or")
-        , \static_code_block("?-  [’c:/Documents  and  Settings/Kris/Prolog/kb2.pl’].")
-        , p("Ok, so Prolog should now know about all the KB2 predicates. And we can check whether it does by using the listing command again:")
-        , \static_code_block("?-  listing.")
-        , p("If you do this, Prolog will list (something like) the following on the screen:")
+        , p(["Make sure you understand how ", \inline_code("\\=/2"), " works by trying it out on (at least) the following examples. But do this actively, not passively. That is, after you type in an example, pause, and try to work out for yourself what Prolog is going to respond. Only then hit return to see if you are right."])
+        , ol([ li(\code_query("a \\= a."))
+             , li(\code_query("'a' \\= a."))
+             , li(\code_query("A \\= a."))
+             , li(\code_query("f(a) \\= a."))
+             , li(\code_query("f(a) \\= A."))
+             , li(\code_query("f(A) \\= f(a)."))
+             , li(\code_query("g(a,B,c) \\= g(A,b,C)."))
+             , li(\code_query("g(a,b,c) \\= g(A,C)."))
+             , li(\code_query("f(X) \\= X."))
+             ]
+          )
+        , p(["Thus the ", \inline_code("\\=/2"), " predicate is (essentially) the negation of the ", \inline_code("=/2"), " predicate: a query involving one of these predicates will be satisfied when the corresponding query involving the other is not, and vice versa. This is the first example we have seen of a Prolog mechanism for handling negation. We discuss Prolog negation (and its peculiarities) in ", a(href("/section/10"), "Chapter 10"), "."])
+        , p(["It’s time to move on and introduce one of the most helpful tools in Prolog: ", \inline_code("trace"), ". This is a built-in Prolog predicate that changes the way Prolog runs: it forces Prolog to evaluate queries one step at a time, indicating what it is doing at each step. Prolog waits for you to press return before it moves to the next step, so that you can see exactly what is going on. It was really designed to be used as a debugging tool, but it’s also helpful when you’re learning Prolog: stepping through programs using ", \inline_code("trace"), " is an ", em("excellent"), " way of learning how Prolog proof search works."])
+        , p(["Let’s look at an example. In the text, we looked at the proof search involved when we made the query ", \inline_code("k(Y)"), " to the following knowledge base:"])
         , \static_code_block(
-'listens2Music(mia).
-happy(yolanda).
-playsAirGuitar(mia):-
-     listens2Music(mia).
-playsAirGuitar(yolanda):-
-     listens2Music(yolanda).
-listens2Music(yolanda):-
-     happy(yolanda).
-
-yes')
-        , p("That is, it will list the facts and rules that make up KB2, and then say yes . Once again, you may get a little more than this, such as the locations of various libraries that have been loaded.")
-        , p("Incidentally, listing can be used in other ways. For example, typing")
-        , \static_code_block("?-  listing(playsAirGuitar).")
-        , p(["simply lists all the information in the knowledge base about the ", \inline_code("playsAirGuitar"), " predicate. So in this case Prolog will display"])
+            [ "f(a)."
+            , "f(b)."
+            , ""
+            , "g(a)."
+            , "g(b)."
+            , ""
+            , "h(b)."
+            , ""
+            , "k(X):-  f(X),  g(X),  h(X)."
+            ]
+          )
+        , p(["Suppose this knowledge base is in file proof.pl . We first consult it:"])
+        , \static_code_block(["?-  [proof].", "yes"])
+        , p(["We then type trace , followed by a full stop, and hit return:"])
+        , \static_code_block(["?-  trace.", "yes"])
+        , p(["Prolog is now in trace mode, and will evaluate all queries step by step. For example, if we pose the query ", \inline_code("k(X)"), ", and then hit return every time Prolog comes back with a ", \inline_code("?"), ", we obtain (something like) the following:"])
         , \static_code_block(
-'playsAirGuitar(mia):-
-     listens2Music(mia).
-playsAirGuitar(yolanda):-
-     listens2Music(yolanda).
-
-yes')
-        , p("Well — now you’re ready to go. KB2 is loaded and Prolog is running, so you can (and should!) start making exactly the sort of inquiries we discussed in the text.")
-        , p("But let’s back up a little, and summarise a few of the practical skills you will need to master to get this far:")
-        , ul([ li("You will need to know some basic facts about the operating system you are using, such as the directory structure it uses. After all, you will need to know how to save the files containing programs where you want them.")
-             , li("You will need to know how to use some sort of text editor, in order to write and modify programs. Some Prolog implementations come with built-in text editors, but if you already know a text editor (such as Emacs) you can use this to write your Prolog code. Just make sure that you save your files as simple text files (for example, if you are working under Windows, don’t save them as Word documents).")
-             , li("You may want to take example Prolog programs from the internet. So make sure you know how to use a browser to find what you want, and to store the code where you want it.")
-             , li("You need to know how to start your version of Prolog, and how to consult files with it.")
-             ])
-        , p("The sooner you pick up these skills, the better. With them out of the way (which shouldn’t take long) you can start concentrating on mastering Prolog (which will take longer).")
-        , p(["But assuming you have mastered these skills, what next? Quite simply, ", em("play with Prolog!"), " Consult the various knowledge bases discussed in the text, and check that the queries discussed really do work the way we said they did. In particular, take a look at KB5 and make sure you understand why you get those peculiar jealousy relations. Try posing new queries. Experiment with the ", \inline_code("listing"), " predicate (it’s a useful tool). Type in the knowledge base used in Exercise  1.5 , and check whether your answers are correct. Best of all, think of some simple situation that interests you, and create a brand-new knowledge base from scratch. "])
+            [ "[trace]  2  ?-  k(X)."
+            , "    Call:  (6)  k(_G34)  ?"
+            , "    Call:  (7)  f(_G34)  ?"
+            , "    Exit:  (7)  f(a)  ?"
+            , "    Call:  (7)  g(a)  ?"
+            , "    Exit:  (7)  g(a)  ?"
+            , "    Call:  (7)  h(a)  ?"
+            , "    Fail:  (7)  h(a)  ?"
+            , "    Fail:  (7)  g(a)  ?"
+            , "    Redo:  (7)  f(_G34)  ?"
+            , "    Exit:  (7)  f(b)  ?"
+            , "    Call:  (7)  g(b)  ?"
+            , "    Exit:  (7)  g(b)  ?"
+            , "    Call:  (7)  h(b)  ?"
+            , "    Exit:  (7)  h(b)  ?"
+            , "    Exit:  (6)  k(b)  ?"
+            , ""
+            , "X  =  b"
+            , "yes"
+            ]
+          )
+        , p(["Study this carefully. That is, try doing the same thing yourself, and relate this output to the discussion of the example in the text, and in particular, to the nodes in the search tree. To get you started, we’ll remark that the third line is where the variable in the query is (wrongly) instantiated to ", \inline_code("a"), ". The first line marked ", \inline_code("fail"), " is where Prolog realises it’s taken the wrong path and starts to backtrack, and the line marked ", \inline_code("redo"), " is where it tries alternatives for the goal ", \inline_code("f(_G34)"), "."])
+        , p(["While learning Prolog, use trace, and use it heavily. It’s a great way to learn. Oh yes: you also need to know how to turn trace off. Simply type ", \inline_code("notrace"), " (followed by a full stop) and hit return:"])
+        , \static_code_block(
+            [ "?-  notrace."
+            , "yes"
+            ]
+          )
         ]
-).
+    ).
 :- end_object.
