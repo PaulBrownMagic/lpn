@@ -1,11 +1,9 @@
-:- object('1.3',
-    extends(exercises)).
+:- object('1.3', extends(exercises)).
     children(['1.3.1', '1.3.2', '1.3.3', '1.3.4', '1.3.5', '1.3.6', '1.3.7', '1.3.8']).
 :- end_object.
 
 
-:- object('1.3.1',
-    extends(mcq)).
+:- object('1.3.1', extends(mcq)).
     title("Atoms and Variables").
     question_options([atom, variable, neither]).
     questions([ question('vINCENT', atom, 'atoms begin with a lowercase letter')
@@ -24,8 +22,7 @@
 :- end_object.
 
 
-:- object('1.3.2',
-    extends(mcq)).
+:- object('1.3.2', extends(mcq)).
 
     title("Atoms, Variables, and Complex Terms").
     question_options([atom, variable, 'complex term', neither]).
@@ -45,8 +42,7 @@
 :- end_object.
 
 
-:- object('1.3.3',
-    extends(input_compare_quiz)).
+:- object('1.3.3', extends(input_compare_quiz)).
     title("Functor and Arity").
     questions([ question('loves(Vincent, mia)', 'loves/2', 'the functor is \'loves\', the arity is \'2\', so the answer is \'loves/2\'.')
               , question('butch(Boxer)', 'butch/1', 'the functor precedes the brackets, the arity is the count of arguments')
@@ -62,8 +58,7 @@
 :- end_object.
 
 
-:- object('1.3.4',
-    extends(input_compare_quiz)).
+:- object('1.3.4', extends(input_compare_quiz)).
 
     title("Facts, Rules, Clauses and Predicates").
     questions([ question('How many facts are there?', '3', 'a fact is unconditionally true, so it does not contain ":-" in its definition')
@@ -85,8 +80,7 @@ father(Y, Z) :- man(Y), daughter(Z, Y).')
 :- end_object.
 
 
-:- object('1.3.5',
-    extends(mcq)).
+:- object('1.3.5', extends(mcq)).
 
     title("Heads, Bodies and Goals").
     question_options([head, goal, body, neither]).
@@ -114,8 +108,7 @@ father(Y, Z) :- man(Y), daughter(Z, Y).')
 :- end_object.
 
 
-:- object('1.3.6',
-    extends(input_markscheme_quiz)).
+:- object('1.3.6', extends(input_markscheme_quiz)).
 
     title("Representing Facts and Rules").
     questions([ question('Butch is a killer.', 'killer(butch).')
@@ -125,13 +118,12 @@ father(Y, Z) :- man(Y), daughter(Z, Y).')
               , question('Mia loves everyone who is a good dancer.', 'love(mia, X) :- good_dancer(X).')
               , question('Jules eats anything that is nutritious or tasty', 'eat(jules, X) :- nutritious(X) ; tasty(X).')
               ]).
-    markscheme(["Here is an example of what your answers could look like.  They, of course, don't have to look ", em("exactly"), " like that. For example, the first fact could also be ", \inline_code("killer('Butch')"), " or ", \inline_code("killer(b)"), " or even ", \inline_code("k(50)"), ", if you decide to represent Butch by the number 50 and the property of being a killer by the predicate ", \inline_code("k/1"), "."]).
+    markscheme(p("Here is an example of what your answers could look like.  They, of course, don't have to look ", em("exactly"), " like that. For example, the first fact could also be ", \inline_code("killer('Butch')"), " or ", \inline_code("killer(b)"), " or even ", \inline_code("k(50)"), ", if you decide to represent Butch by the number 50 and the property of being a killer by the predicate ", \inline_code("k/1"), ".")).
     subcontent(p("Represent the following in Prolog:")).
 :- end_object.
 
 
-:- object('1.3.7',
-    extends(mcq)).
+:- object('1.3.7', extends(mcq)).
 
     title("Answering Queries").
     question_options([yes, no, 'ERROR']).
@@ -155,8 +147,7 @@ hasBroom(X) :- quidditchPlayer(X).
 :- end_object.
 
 
-:- object('1.3.8',
-    extends(mcq)).
+:- object('1.3.8', extends(mcq)).
 
     title("Unifying Queries").
     question_options([yes, no]).

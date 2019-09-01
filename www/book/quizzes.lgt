@@ -132,7 +132,7 @@
     feedback --> { ::markscheme(M) },
         html_write:html(div([id(markscheme), class(['col'])],
             [ input([type(button), class([btn, 'btn-primary']), value('Check Answers'), onclick('markscheme()')], [])
-            , p(class([collapse, markscheme]), M)
+            , div(class([collapse, markscheme]), M)
             ])
         ).
 
@@ -141,4 +141,24 @@
          length(Codes, 12),
          meta::map({random_between(97, 122)}, Codes),
          atom_codes(ID, Codes).
+:- end_object.
+
+
+:- object(offline_markscheme_quiz,
+    extends(quiz)).
+    :- meta_non_terminal(html_write:html(*)).
+
+    :- private(markscheme/1).
+
+    required_script('markscheme.js').
+
+    :- private(feedback//0).
+    feedback --> { ::markscheme(M) },
+        html_write:html(div([id(markscheme)],
+            [ input([type(button), class([btn, 'btn-primary']), value('Check Answer'), onclick('markscheme()')], [])
+            , div(class([collapse, markscheme]), M)
+            ])
+        ).
+
+    content --> ::quiz_heading, ::feedback.
 :- end_object.

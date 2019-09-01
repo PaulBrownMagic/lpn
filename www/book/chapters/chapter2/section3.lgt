@@ -1,11 +1,9 @@
-:- object('2.3',
-    extends(exercises)).
+:- object('2.3', extends(exercises)).
     children(['2.3.1', '2.3.2', '2.3.3', '2.3.4', '2.3.5', '2.3.6', '2.3.7']).
 :- end_object.
 
 
-:- object('2.3.1',
-    extends(mcq)).
+:- object('2.3.1', extends(mcq)).
     title("Unification Success and Failure").
     question_options([unifies, fails]).
     questions([ question('bread = bread', unifies, 'unification succeeds when both sides of = are identical')
@@ -28,23 +26,22 @@
 :- end_object.
 
 
-:- object('2.3.2',
-    extends(input_compare_quiz)).
+:- object('2.3.2', extends(input_markscheme_quiz)).
     title("Unification With Variables").
-    questions([ question('Bread = bread', 'Bread = bread', 'the variable always preceeds the unification term: Bread = bread')
-              , question('food(bread) = X', 'X = food(bread)', 'a variable will unify with anything')
-              , question('food(X) = food(bread)', 'X = bread', 'variables in complex terms will unify with atoms in matching positions of the same predicate')
-              , question('food(bread, X) = food(Y, sausage)', 'X = sausage, Y = bread', 'variables in complex terms will unify with atoms in matching positions of the same predicate')
-              , question('food(X) = X', 'X = food(X)', 'according to the basic definition of unification given in the text, these two terms do not unify, as no matter what (finite) term we instantiate X to, the two sides won\'t be identical. However (as we mentioned in the text) modern Prolog interpreters will detect that there is a problem here and will instantiate X with the \'infinite term\' food(food(food(...))), and report that unification succeeds. In short, there is no \'correct\' answer to this question; it\'s essentially a matter of convention. The important point is to understand why such unifications need to be handled with care.')
-              , question('meal(food(bread), drink(beer)) = meal(X, Y)', 'X = food(bread), Y = drink(beer)', 'variables in complex terms will unify with complex terms in matching positions of the same predicate')
+    questions([ question('Bread = bread',                               'Bread = bread'                   )
+              , question('food(bread) = X',                             'X = food(bread)'                 )
+              , question('food(X) = food(bread)',                       'X = bread'                       )
+              , question('food(bread, X) = food(Y, sausage)',           'X = sausage, Y = bread'          )
+              , question('food(X) = X',                                 'X = food(X)'                     )
+              , question('meal(food(bread), drink(beer)) = meal(X, Y)', 'X = food(bread), Y = drink(beer)')
               ]).
 
+    markscheme([p("When unifying variables Prolog will print the variable first. A variable will unify with anything. Those in complex terms unify with atoms in the matching positions of the same predicate with the same arity. Once a variable is unified it can't be instantiated to a different value in the same expression."), p(["In the case of ", \inline_code("X = food(X)"), ", according to the basic definition of unification given in the text, these two terms do not unify, as no matter what (finite) term we instantiate ", \inline_code("X"), " to, the two sides won't be identical. However (as we mentioned in the text) modern Prolog interpreters will detect that there is a problem here and will instantiate ", \inline_code("X"), " with the 'infinite term' ", \inline_code("food(food(food(...))),"), " and report that unification succeeds. In short, there is no 'correct' answer to this question; it's essentially a matter of convention. The important point is to understand why such unifications need to be handled with care."])]).
     subcontent(p("Give the variable instantiations that lead to successful unification, in the format: Var = term")).
 :- end_object.
 
 
-:- object('2.3.3',
-    extends(mcq)).
+:- object('2.3.3', extends(mcq)).
     title("Unification Through Rules, Success and Failure").
     question_options([succeeds, fails]).
      questions([ question('?- magic(house_elf).', fails, 'Prolog cannot unify X with a functor')
@@ -70,8 +67,7 @@
 :- end_object.
 
 
-:- object('2.3.4',
-    extends(input_compare_quiz)).
+:- object('2.3.4', extends(input_compare_quiz)).
     title("Unification Order Through Rules"). % In what order do these unify).
     questions([ question('Hermione = dobby.',         '1', 'Prolog checks rules from top to bottom')
               , question('Hermione = house_elf',       '', 'Prolog cannot unify X with a functor')
@@ -97,7 +93,7 @@
 
 
 :- object('2.3.5',
-    extends(leaf_section)).
+    extends(offline_markscheme_quiz)).
 
     title("Unification Proof Tree").
 
@@ -112,8 +108,10 @@
             , "magic(X):-  wizard(X)."
             , "magic(X):-  witch(X)."
             ])
-        , p(["Draw the search tree for the query ", \inline_code("magic(Hermione)")])
+            , p(["Draw the search tree for the query ", \inline_code("?- magic(Hermione).")])
         ]).
+
+    markscheme([p(["The search tree for the query ", \inline_code("magic(Hermione)"), " is:"]), \diagram("chapter2/answer235.png", "Search tree for the query `magic(Hermione)`")]).
 
 :- end_object.
 
