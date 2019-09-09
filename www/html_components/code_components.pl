@@ -13,6 +13,12 @@ html_write:code_block(ID, Block) -->
     { atomics_to_string(Block, "\n", Code), length(Block, Rows) },
     html(textarea([class([code, 'form-control', 'mb-2', 'text-monospace']), id(ID), rows(Rows)], Code)).
 
+% Interactive code block
+html_write:hidden_code_block(ID, Block) -->
+    { atomics_to_string(Block, "\n", Code), length(Block, Rows) },
+    html(textarea([class([code, 'form-control', 'mb-2', 'text-monospace', collapse]), id(ID), rows(Rows)], Code)).
+
+
 % A Query for a code block
 html_write:code_query(ID, Query) --> {random_id(UID)},
     html(
