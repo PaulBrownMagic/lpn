@@ -138,9 +138,9 @@
 
 
     random_id(ID) :-
-         length(Codes, 12),
-         meta::map({random_between(97, 122)}, Codes),
+         backend_random::sequence(12, 97, 122, Codes),
          atom_codes(ID, Codes).
+
 :- end_object.
 
 
