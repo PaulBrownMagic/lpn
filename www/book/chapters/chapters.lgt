@@ -15,3 +15,25 @@
           , "To explain the search strategy Prolog uses when it tries to deduce new information from old using modus ponens"
           ]).
 :- end_object.
+
+
+
+
+
+
+
+
+
+
+
+:- object('4',
+    extends(chapter)).
+    title('Lists').
+    children(['4.1', '4.2', '4.3', '4.4', '4.5']).
+    goals([ "To introduce lists, an important recursive data structure often used in Prolog programming."
+          , "To define the member/2 predicate, a fundamental Prolog tool for manipulating lists."
+          , "To introduce the idea of recursing down lists."
+          ]).
+:- end_object.
+
+
