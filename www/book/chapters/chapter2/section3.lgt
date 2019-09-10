@@ -92,8 +92,7 @@
 :- end_object.
 
 
-:- object('2.3.5',
-    extends(offline_markscheme_quiz)).
+:- object('2.3.5', extends(offline_markscheme_quiz)).
 
     title("Unification Proof Tree").
 
@@ -121,43 +120,18 @@
     title("Generation By Unification").
     questions([ question('1', 'a criminal eats a criminal')
               , question('2', 'a criminal eats a big kahuna burger')
-              , question('3', 'a criminal eats every criminal')
-              , question('4', 'a criminal eats every big kahuna burger')
-              , question('5', 'a criminal likes a criminal')
-              , question('6', 'a criminal likes a big kahuna burger')
-              , question('7', 'a criminal likes every criminal')
-              , question('8', 'a criminal likes every big kahuna burger')
-              , question('9', 'a big kahuna burger eats a criminal')
-              , question('10', 'a big kahuna burger eats a big kahuna burger')
-              , question('11', 'a big kahuna burger eats every criminal')
-              , question('12', 'a big kahuna burger eats every big kahuna burger')
-              , question('13', 'a big kahuna burger likes a criminal')
-              , question('14', 'a big kahuna burger likes a big kahuna burger')
-              , question('15', 'a big kahuna burger likes every criminal')
-              , question('16', 'a big kahuna burger likes every big kahuna burger')
-              , question('17', 'every criminal eats a criminal')
-              , question('18', 'every criminal eats a big kahuna burger')
-              , question('19', 'every criminal eats every criminal')
-              , question('20', 'every criminal eats every big kahuna burger')
-              , question('21', 'every criminal likes a criminal')
-              , question('22', 'every criminal likes a big kahuna burger')
-              , question('23', 'every criminal likes every criminal')
-              , question('24', 'every criminal likes every big kahuna burger')
-              , question('25', 'every big kahuna burger eats a criminal')
-              , question('26', 'every big kahuna burger eats a big kahuna burger')
-              , question('27', 'every big kahuna burger eats every criminal')
-              , question('28', 'every big kahuna burger eats every big kahuna burger')
-              , question('29', 'every big kahuna burger likes a criminal')
-              , question('30', 'every big kahuna burger likes a big kahuna burger')
-              , question('31', 'every big kahuna burger likes every criminal')
-              , question('32', 'every big kahuna burger likes every big kahuna burger')
+              , question('3', 'a criminal likes a criminal')
+              , question('4', 'a criminal likes a big kahuna burger')
+              , question('5', 'a big kahuna burger eats a criminal')
+              , question('6', 'a big kahuna burger eats a big kahuna burger')
+              , question('7', 'a big kahuna burger likes a criminal')
+              , question('8', 'a big kahuna burger likes a big kahuna burger')
               ]).
 
-    markscheme([]).
+    markscheme(p("Prolog unifies with rules and facts from top to bottom, but backtracks goals from bottom to top.")).
     subcontent([ p("Here is a tiny lexicon (that is, information about individual words) and a mini grammar consisting of one syntactic rule (which defines a sentence to be an entity consisting of five words in the following order: a determiner, a noun, a verb, a determiner, a noun).")
                , \static_code_block(
                    [ "word(determiner,a)."
-                   , "word(determiner,every)."
                    , "word(noun,criminal)."
                    , "word(noun,’big  kahuna  burger’)."
                    , "word(verb,eats)."

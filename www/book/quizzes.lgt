@@ -162,3 +162,27 @@
 
     content --> ::quiz_heading, ::feedback.
 :- end_object.
+
+
+:- object(predicate_quiz,
+    extends(quiz)).
+    :- meta_non_terminal(html_write:html(*)).
+
+    :- protected(query/1).
+    :- private(tests/1).
+
+    required_script('../interactive_pl.js').
+
+    content --> { ::query(Q), length(Rows, 10), meta::map(=(''), Rows) },
+        ::quiz_heading, html_write:code_block("editor", Rows), html_write:code_query("editor", Q).
+:- end_object.
+
+:- object(predicate_quiz_with_kb,
+    extends(predicate_quiz)).
+    :- meta_non_terminal(html_write:html(*)).
+
+    :- private(kb/1).
+
+    content --> { ::query(Q), length(Rows, 10), meta::map(=(''), Rows), ::kb(KB), { append(KB, Rows, KBRows) } },
+        ::quiz_heading, html_write:code_block("editor", KBRows), html_write:code_query("editor", Q).
+:- end_object.
