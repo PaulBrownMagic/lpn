@@ -16,15 +16,15 @@ $(document).ready(function() {
 function expand_book_nav(caret) {
     $(caret).toggleClass('caret-down')
     $($(caret).parent().next("ul")).toggleClass('show')
-    localStorage.setItem('booknav', $('#booknav').html())
+    sessionStorage.setItem('booknav', $('#booknav').html())
 }
 
 function reload_booknav() {
-    const bn = localStorage.getItem('booknav')
+    const bn = sessionStorage.getItem('booknav')
     if (bn) {
         $('#booknav').html(bn)
     }
-    if (localStorage.getItem('bn_showing') == 'true') {
+    if (sessionStorage.getItem('bn_showing') == 'true') {
         $('#sidenav').addClass('show')
     }
     else {
@@ -36,10 +36,10 @@ function reload_booknav() {
 
 function toggleshowingbooknav() {
     if ($('#sidenav').hasClass('show')) { // is being closed
-        localStorage.setItem('bn_showing', false)
+        sessionStorage.setItem('bn_showing', false)
     }
     else {
-        localStorage.setItem('bn_showing', true)
+        sessionStorage.setItem('bn_showing', true)
     }
 }
 
