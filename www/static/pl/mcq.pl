@@ -4,8 +4,7 @@
 
 
 init :-
-    findall(I, get_by_type(radio, I), Inputs),
-    maplist(bind_click, Inputs).
+    forall(get_by_type(radio, Input), bind_click(Input)).
 
 bind_click(Input) :-
     attr(Input, name, Name),
