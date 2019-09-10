@@ -23,7 +23,7 @@ ako(A, B) :-
 
 :- initialization((
 	logtalk_load(
-        [ library(metapredicates_loader) % meta::map
+        [ random(loader) % backend_random::sequence/4
         , 'book/sections'
         , 'book/quizzes'
         , 'book/book'
