@@ -95,3 +95,14 @@ html_write:footnote(Content) --> { is_list(Content), phrase(html(Content), Codes
 
 html_write:diagram(Src, Alt) --> { atom_concat('/static/images/', Src, Img) },
     html(img([class(['mx-auto', 'd-block', diagram]), alt(Alt), src(Img)], [])).
+
+html_write:table(Head, Body) -->
+html(table(class([table, 'table-hover', 'table-striped']), [thead(class('table-dark'), \trr(Head)), tbody(\tbody(Body))])).
+trr(Tds) -->
+    html(tr(\tds(Tds))).
+tds([]) --> [].
+tds([H|T]) -->
+    html(td(H)), tds(T).
+tbody([]) --> [].
+tbody([H|T]) -->
+    trr(H), tbody(T).
